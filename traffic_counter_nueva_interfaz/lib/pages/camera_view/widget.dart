@@ -5,7 +5,6 @@ import 'package:traffic_counter_nueva_interfaz/pages/camera_view/widgets/save_di
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traffic_counter_nueva_interfaz/pages/camera_view/bloc/camera_view_bloc.dart';
 import 'package:traffic_counter_nueva_interfaz/pages/camera_view/bloc/camera_view_event.dart';
-import 'package:traffic_counter_nueva_interfaz/pages/camera_view/bloc/camera_view_state.dart';
 
 /// Imagen con contador desplegable y botón de ayuda superpuestos
 class DetectionImage extends StatelessWidget {
@@ -72,7 +71,7 @@ class DetectionActionButtons extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
-          height: 50,
+          height: MediaQuery.of(context).size.height * 0.067,
           child: Row(
             children: [
               Expanded(
@@ -223,7 +222,7 @@ class DetectionBottomControls extends StatelessWidget {
     final playSize = MediaQuery.of(context).size.height * 0.12;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

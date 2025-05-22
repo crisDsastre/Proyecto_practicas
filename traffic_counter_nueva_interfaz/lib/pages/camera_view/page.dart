@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:traffic_counter_nueva_interfaz/pages/camera_view/widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traffic_counter_nueva_interfaz/pages/camera_view/bloc/camera_view_bloc.dart';
-import 'package:traffic_counter_nueva_interfaz/pages/camera_view/bloc/camera_view_event.dart';
-import 'package:traffic_counter_nueva_interfaz/pages/camera_view/bloc/camera_view_state.dart';
 
 class NewDetectionPage extends StatelessWidget {
   const NewDetectionPage({super.key});

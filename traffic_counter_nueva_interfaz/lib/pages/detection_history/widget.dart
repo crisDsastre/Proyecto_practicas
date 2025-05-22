@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traffic_counter_nueva_interfaz/constants/main_theme.dart';
+import 'package:traffic_counter_nueva_interfaz/pages/detection_history/bloc/detection_history_bloc.dart';
+import 'package:traffic_counter_nueva_interfaz/pages/detection_history/bloc/detection_history_state.dart';
 
 class DetectionCard extends StatelessWidget {
   final String title;
@@ -17,7 +20,7 @@ class DetectionCard extends StatelessWidget {
     required this.tags,
     required this.onEdit,
     required this.onLoad,
-  }); // Llamada correcta a super.key
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,30 +55,24 @@ class DetectionCard extends StatelessWidget {
           // Tags
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            verticalDirection: VerticalDirection.down,
-
             children: [
               Wrap(
                 spacing: 4,
                 runSpacing: 0,
                 alignment: WrapAlignment.start,
-
                 children:
                     tags.map((tag) {
                       return Chip(
                         padding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(
+                        visualDensity: const VisualDensity(
                           horizontal: -4,
                           vertical: -4,
                         ),
-                        labelPadding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 0,
-                        ),
+                        labelPadding: const EdgeInsets.symmetric(horizontal: 6),
                         label: Text(
                           "#$tag",
                           style: const TextStyle(
-                            fontSize: 9, // 👈 más pequeño
+                            fontSize: 9,
                             color: MainTheme.textColorDark,
                           ),
                         ),
@@ -98,7 +95,6 @@ class DetectionCard extends StatelessWidget {
             children: [
               const Icon(
                 Icons.directions_car_filled,
-
                 size: 20,
                 color: MainTheme.iconSettingsColor,
               ),
@@ -135,17 +131,23 @@ class DetectionCard extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: onLoad,
-                  icon: const Icon(Icons.play_arrow_outlined, size: 25),
-                  label: const Text("Load"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: MainTheme.backgroundColorSection,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
+                child: BlocBuilder<DetectionHistoryBloc, DetectionHistoryState>(
+                  builder: (context, state) {
+                    final isLoading = state is LoadingState;
+
+                    return ElevatedButton.icon(
+                      onPressed: isLoading ? null : onLoad,
+                      icon: const Icon(Icons.play_arrow_outlined, size: 25),
+                      label: const Text("Load"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: MainTheme.backgroundColorSection,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
